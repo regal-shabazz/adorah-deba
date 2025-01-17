@@ -18,12 +18,12 @@
 </head>
 
 <body>
-    <header id="navbar" class="fixed w-full z-10 text-white z-100 bg-yellow-100">
+    <header id="navbar" class="fixed w-full z-10 text-white z-100 bg-white">
         <nav class="container flex flex-col md:flex-row justify-between items-center gap-5 py-5 ">
             <div><a href="#"><img src="./images/Logo--03.png" alt="" class="w-[50px]"></a></div>
 
             <div class="w-full md:w-max">
-                <ul class="flex justify-between md:justify-normal sm:gap-5 text-red-950">
+                <ul class="flex justify-between md:justify-normal sm:gap-5 text-[#5c222a] font-semibold">
                     <li><a href="./index.html" class="nav-link">Home</a></li>
                     <li><a href="./gallery.html" class="nav-link">Gallery</a></li>
                     <li><a href="./admin.html" id="admin-btn">Admin</a></li>
@@ -36,8 +36,8 @@
             <div class="relative container mx-auto min-h-screen pt-48 pb-20">
                 <div class="text-center">
                     <div>
-                        <h1 class="text-5xl font-bold mb-4 font-Funnel">Gallery</h1>
-                        <p class="font-Birthstone text-2xl md:text-3xl text-yellow-400">Captured Moments of Love and Joy</p>
+                        <h1 class="text-5xl text-yellow-100 font-bold mb-4 font-Funnel">Gallery</h1>
+                        <p class="font-Birthstone text-2xl md:text-3xl text-yellow-300">Captured Moments of Love and Joy</p>
                     </div>
                     <!-- Responsive Grid -->
                     <div id="images-container" class="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
@@ -51,35 +51,31 @@
         <script src="./gallery.js"></script>
         
     </main>
-
-    <div id="admin-modal" class="fixed inset-0  z-50 flex items-center justify-center bg-black/70 hidden">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
+    <div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden">
+        <div class="bg-yellow-300 p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
             <!-- Close Button -->
-            <button id="close-admin-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl">
+            <button id="close-admin-modal" class="absolute top-4 right-4 text-[#5c222a] hover:text-gray-800 text-2xl">
                 <i class="ri-close-line"></i>
             </button>
-
+    
             <!-- Modal Content -->
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Admin Login</h2>
+            <h2 class="text-2xl font-bold text-[#5c222a] mb-4">Admin Login</h2>
             <form id="admin-form" class="space-y-4">
                 <!-- Username or Email -->
                 <div>
-                    <label for="admin-username" class="block text-sm text-gray-600">Username or Email</label>
-                    <input type="text" id="admin-username" name="admin-username"
-                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+                    <label for="admin-username" class="block text-sm text-[#5c222a]">Username or Email</label>
+                    <input type="text" id="admin-username" name="admin-username" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
                 </div>
-
+    
                 <!-- Password -->
                 <div>
-                    <label for="admin-password" class="block text-sm text-gray-600">Password</label>
-                    <input type="password" id="admin-password" name="admin-password"
-                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+                    <label for="admin-password" class="block text-sm text-[#5c222a]">Password</label>
+                    <input type="password" id="admin-password" name="admin-password" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
                 </div>
-
+    
                 <!-- Submit Button -->
                 <div class="text-center">
-                    <button type="submit"
-                        class="bg-yellow-400 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-500">
+                    <button type="submit" class="bg-[#5c222a] text-yellow-100 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-500">
                         Login
                     </button>
                 </div>
