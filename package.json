@@ -1,0 +1,19 @@
+{
+  "name": "adorah-deba",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./input.css -o ./output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "firebase": "^11.1.0",
+    "qrcode": "^1.5.4"
+  }
+}

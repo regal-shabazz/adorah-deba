@@ -1,0 +1,151 @@
+<script>
+                                const countdown = () => {
+                                    const weddingDate = new Date('2025-06-15T00:00:00').getTime();
+                                    const now = new Date().getTime();
+                                    const distance = weddingDate - now;
+
+                                    const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+                                    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+                                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                    document.getElementById('months').innerText = months;
+                                    document.getElementById('days').innerText = days;
+                                    document.getElementById('hours').innerText = hours;
+                                    document.getElementById('minutes').innerText = minutes;
+                                    document.getElementById('seconds').innerText = seconds;
+
+                                    if (distance < 0) {
+                                        clearInterval(interval);
+                                        document.getElementById('countdown').innerText = "The Wedding has started!";
+                                    }
+                                };
+
+                                const interval = setInterval(countdown, 1000);
+                                countdown();
+                            </script>
+
+
+
+
+
+                            <!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- --------------- favicon ------------- -->
+
+    <!-- ---------- remixicons ---------------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <!-- -------------- stylesheet -------------- -->
+    <link href="./output.css" rel="stylesheet">
+    <title>Adorah Weds Deba 2025</title>
+</head>
+
+<body>
+    <header id="navbar" class="bg-black/50 fixed w-full z-10 text-white">
+        <nav class="container flex flex-col md:flex-row justify-between items-center gap-5 py-5">
+            <div><a href="#">logo</a></div>
+
+            <div class="w-full md:w-max">
+                <ul class="flex justify-between md:justify-normal sm:gap-5">
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link">Wedding Details</a></li>
+                    <li><a href="#" class="nav-link">Gallery</a></li>
+                    <li><a href="#" class="cta-btn">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ------------------------MAIN -------------------------- -->
+    <main>
+      ownDate = new Date("Dec 25, 2025 15:37:25").getTi  <section id="home" class="bg-[url('./images/image-1.jpg')] bg-cover bg-center h-screen w-full">
+            <!-- container -->
+            <div class="container h-full flex flex-col justify-between">
+                <div class="text-center text-white bg-black/50 p-10 w-full md:w-[700px] mx-auto">
+                    <h1 class="mb-2">Adorah weds Deba</h1>
+                    <p class="mb-2">in</p>
+                    <div id="countdown" class="text-2xl font-bold">
+                        <span id="months">00</span> months
+                        <span id="days">00</span> days
+                        <br>
+                        <span id="hours">00</span> hrs
+                        <span id="minutes">00</span> min
+                        <span id="seconds">00</span> secs
+                    </div>
+                    <script>
+                        // Set the date we're counting down to
+                        var countDme();
+
+                        // Update the count down every 1 second
+                        var x = setInterval(function () {
+
+                            // Get today's date and time
+                            var now = new Date().getTime();
+
+                            // Find the distance between now and the count down date
+                            var distance = countDownDate - now;
+
+                            // Time calculations for months, days, hours, minutes and seconds
+                            var months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
+                            var days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            // Output the result in an element with id="countdown"
+                            document.getElementById("months").innerHTML = months;
+                            document.getElementById("days").innerHTML = days;
+                            document.getElementById("hours").innerHTML = hours;
+                            document.getElementById("minutes").innerHTML = minutes;
+                            document.getElementById("seconds").innerHTML = seconds;
+
+                            // If the count down is over, write some text 
+                            if (distance < 0) {
+                                clearInterval(x);
+                                document.getElementById("countdown").innerHTML = "EXPIRED";
+                            }
+                        }, 1000);
+                    </script>
+
+                </div>
+                <!-- rsvp cta -->
+                <div class="text-center bg-black/50 p-10 text-white font-semibold w-full md:w-[700px] mx-auto flex flex-col gap-5">
+                    <p class="text-3xl">Will you be attending?</p>
+
+                    <a href="" class="cta-btn block bg-yellow-500 md:hover:bg-yellow-700 w-full md:w-max mx-auto text-xl">Click Here to RSVP</a>
+                </div>
+            </div>
+        </section>
+
+        <!-------- wedding details ----------->
+        <section class="bg-yellow-200">
+            <div class="container py-20">
+                <div class="text-center">
+                    <h2 class="mb-4">Wedding Details</h2>
+
+                    <div class="mb-4">
+                        <span class="font-semibold">Date:</span> Lorem ipsum dolor sit amet
+                    </div>
+
+                    <div>
+                        <span class="font-semibold">Location:</span> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, adipisci.
+                    </div>
+
+                    <a href="" class="block underline my-4">Read More</a>
+                </div>
+
+                <div class="flex flex-col md:flex-row md:w-[700px] mx-auto justify-center gap-5 text-center bg-black/50 p-5 text-white">
+
+                    <a href="" class="block cta-btn bg-yellow-500">Click Here to RSVP</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

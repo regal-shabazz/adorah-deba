@@ -1,0 +1,292 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- --------------- favicon ------------- -->
+
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"></script>
+
+
+
+    <!-- ---------- remixicons ---------------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <!-- -------------- stylesheet -------------- -->
+    <link href="./output.css" rel="stylesheet">
+    <title>Adorah Weds Deba 2025</title>
+</head>
+
+<body>
+    <header id="navbar" class="fixed w-full z-10 text-white z-100 bg-yellow-100">
+        <nav class="container flex flex-col md:flex-row justify-between items-center gap-5 py-5 ">
+            <div><a href="#"><img src="./images/Logo--03.png" alt="" class="w-[50px]"></a></div>
+
+            <div class="w-full md:w-max">
+                <ul class="flex justify-between md:justify-normal sm:gap-5 text-red-950">
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link">Gallery</a></li>
+                    <li><a href="#" id="admin-btn">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero"
+            class="relative before:content-[''] before:w-full before:h-full before:absolute before:bg-black/70 before:top-0 before:left-0 h-screen bg-[url('./images/bg2.jpg')] bg-cover bg-center">
+            <div class="relative container mx-auto h-full pt-44 py-28 flex flex-col items-start justify-end">
+                <div>
+                    <p class="font-Funnel text-yellow-100 mb-48 text-6xl">Adorah <i class="ri-hearts-line"></i> Deba</p>
+                </div>
+                <div class="text-yellow-100 mb-10">
+                    <p class="uppercase font-Funnel text-xl md:text-xl mb-2">save our date</p>
+                    <p class="capitalize font-Birthstone text-6xl md:text-8xl text-yellow-400">we're getting married!
+                    </p>
+                    <p class="text-xl text-yellow-100 font-Funnel md:text-xl">22nd April, 2025</p>
+                </div>
+                <div class="w-full md:w-max">
+                    <button class="cta-btn block bg-red-800 text-yellow-100 text-xl w-full text-center">RSVP NOW <i
+                            class="ri-send-plane-fill"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <section class="relative before:content-[''] before:w-full before:h-full before:absolute before:bg-black/70 before:top-0 before:left-0 bg-[url('./images/image-1.jpg')]  bg-cover bg-center">
+            <div class="relative z-1 container mx-auto py-20">
+                <div id="countdown" class="text-center flex flex-col md:flex-row items-center justify-between text-4xl font-Funnel text-white">
+                    <p class="mb-4 md:text-left text-yellow-100">Countdown to our <span class="font-Birthstone text-6xl text-yellow-400">big day</span></p>
+                    <div class="flex justify-center gap-5 text-yellow-100">
+                        <div class="countdown-item">
+                            <span id="month" class="text-6xl">00</span>
+                            <p class="text-xl">Months</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="days" class="text-6xl">00</span>
+                            <p class="text-xl">Days</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="hours" class="text-6xl">00</span>
+                            <p class="text-xl">Hours</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="minutes" class="text-6xl">00</span>
+                            <p class="text-xl">Minutes</p>
+                        </div>
+                        <div class="countdown-item">
+                            <span id="seconds" class="text-6xl">00</span>
+                            <p class="text-xl">Seconds</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-yellow-100">
+            <div class="container mx-auto py-20 flex flex-col md:flex-row items-center justify-between">
+                <div id="wedding-details" class="text-center md:text-left md:w-1/3">
+                    <h3 class="mb-6 text-5xl font-bold font-Funnel">Wedding Details</h3>
+                    <p class="text-gray-800 mb-8 font-semibold">Get the full details of our wedding ceremony and reception. Download the
+                        invitation card</p>
+
+                   
+                </div> 
+                <a href="./images/Invitation-08.jpg" download="./images/Invitation-08.jpg" class="cta-btnn block font-semibold md:w-max bg-red-800 text-yellow-100 text-xl w-full text-center">
+                    DOWNLOAD WEDDING IV <i class="ri-download-line"></i>
+                </a>
+            </div>
+        </section>
+        <section class="bg-yellow-100 relative before:content-[''] before:w-full before:h-full before:absolute before:bg-black/70 before:top-0 before:left-0 h-screen bg-[url('./images/image-2.jpg')] bg-cover bg-center text-white">
+            <div class="relative z-1 flex h-full items-center container mx-auto py-20">
+                <div>
+                    <p class="text-xl text-yellow-100 md:w-1/2 font-Funnel">Dear Friends and Family,
+
+                        We are deeply grateful for your love and support as we begin this exciting new chapter in our
+                        lives. Your presence—whether in person or in spirit—means the world to us and has filled our
+                        hearts with joy.
+                        <br>
+                        <br>
+                        Thank you for celebrating this special day with us and for the cherished memories we’ll create
+                        together. We feel so lucky to have such amazing people surrounding us as we embark on this
+                        journey as a married couple.
+                        <br>
+                        <br>
+                        With all our love and gratitude,
+                        <br>
+                        <br>
+                        - <span class="text-6xl text-yellow-400 font-Birthstone">Adorah and Deba</span>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- RSVP Modal -->
+<div id="rsvp-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
+        <!-- Close Button -->
+        <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl">
+            <i class="ri-close-line"></i>
+        </button>
+
+        <!-- Modal Content -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">RSVP Now</h2>
+        <form id="rsvp-form" class="space-y-4">
+            <!-- First Name -->
+            <div>
+                <label for="first-name" class="block text-sm text-gray-600">First Name</label>
+                <input type="text" id="first-name" name="first-name" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+            </div>
+        
+            <!-- Last Name -->
+            <div>
+                <label for="last-name" class="block text-sm text-gray-600">Last Name</label>
+                <input type="text" id="last-name" name="last-name" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+            </div>
+        
+            <!-- Coming Alone or Plus One -->
+            <fieldset class="border border-gray-300 rounded-lg p-4">
+                <label class="block text-sm text-gray-600">Will you be attending alone?</label>
+                <div class="flex items-center gap-4">
+                    <label>
+                        <input type="radio" name="attending" value="alone" class="attending-option"> Alone
+                    </label>
+                    <label>
+                        <input type="radio" name="attending" value="with partner" class="attending-option"> With a partner
+                    </label>
+                </div>
+            
+                <div id="partner-name-field" class="hidden mt-2">
+                    <label for="partner-name" class="block text-sm text-gray-600">Partner's Name</label>
+                    <input type="text" id="partner-name" name="partner-name" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300">
+                </div>
+            </fieldset>
+            <!-- Contact Method -->
+            <fieldset class="border border-gray-300 rounded-lg p-4">
+                <legend class="text-sm text-gray-600">Preferred Contact Method</legend>
+                <div class="flex items-center gap-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="contact-method" value="email" class="mr-2 contact-radio" required>
+                        Email
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="contact-method" value="whatsapp" class="mr-2 contact-radio" required>
+                        WhatsApp
+                    </label>
+                </div>
+
+                <!-- Dynamic Contact Input -->
+            <div id="contact-input" class="hidden mt-2">
+                <label id="contact-label" for="contact-info" class="block text-sm text-gray-600">Contact Info</label>
+                <input type="text" id="contact-info" name="contact-info" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300">
+            </div>
+            </fieldset>
+        
+            
+        
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="bg-yellow-400 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-500">
+                    Submit RSVP
+                </button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<!-- Admin Login Modal -->
+<div id="admin-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
+        <!-- Close Button -->
+        <button id="close-admin-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl">
+            <i class="ri-close-line"></i>
+        </button>
+
+        <!-- Modal Content -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Admin Login</h2>
+        <form id="admin-form" class="space-y-4">
+            <!-- Username or Email -->
+            <div>
+                <label for="admin-username" class="block text-sm text-gray-600">Username or Email</label>
+                <input type="text" id="admin-username" name="admin-username" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label for="admin-password" class="block text-sm text-gray-600">Password</label>
+                <input type="password" id="admin-password" name="admin-password" class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="bg-yellow-400 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-500">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- QR Code Modal -->
+<div id="qr-code-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
+        <!-- Close Button -->
+        <button id="close-qr-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl">
+            <i class="ri-close-line"></i>
+        </button>
+
+        <!-- Modal Content -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Your Access Pass</h2>
+
+        <!-- Thank You Message -->
+        <div id="thank-you-message" class="text-lg text-gray-800 mb-4"></div>
+
+        <!-- Info Message -->
+        <div id="info-message" class="text-sm text-green-600 mb-6"></div>
+
+        <!-- QR Code -->
+        <div id="qrcode" class="flex justify-center mb-6"></div>
+
+        <!-- Instructions Message -->
+        <p class="text-sm text-red-600 text-center">Please take a screenshot of this pass for your entry at the venue. The QR code will be scanned for access.</p>
+    </div>
+</div>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+    import { getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+    
+    
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBS59aKUsLSYDPwpF5BmVk7AdeWRBgrRHw",
+      authDomain: "adorahdebaa.firebaseapp.com",
+      projectId: "adorahdebaa",
+      storageBucket: "adorahdebaa.firebasestorage.app",
+      messagingSenderId: "864472181612",
+      appId: "1:864472181612:web:0c96f54dbc4d082fd2e149",
+      measurementId: "G-234QM140XC"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+    const rsvpCollection = collection(db, "rsvps");
+  </script>
+
+ <script type="module" src="./main.js"></script>
+</body>
+
+</html> 

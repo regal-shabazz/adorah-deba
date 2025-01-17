@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Dynalight&family=Funnel+Display:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Birthstone&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .container {
+    width: 100%; /* Default width */
+  }
+  @media (max-width: 768px) {
+    .container {
+    width: 90%; /* 90% width on small screens */
+    }
+  }
+}
+
+.nav-link:hover {
+  @apply text-yellow-500
+}
+
+#home .container {
+  @apply pt-40 pb-20
+}
+
+h1 {
+  @apply text-4xl md:text-6xl font-bold
+}
+
+h2 {
+  @apply text-2xl md:text-4xl font-semibold
+}
+
+.cta-btn {
+  @apply py-2 px-4 rounded
+}
+
+.cta-btnn {
+  @apply py-2 px-4 rounded
+}
+@media (min-width: 768px) {
+  .nav-link:hover {
+   @apply text-yellow-400 
+  }
+}
