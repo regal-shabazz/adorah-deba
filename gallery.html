@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- --------------- favicon ------------- -->
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js"></script>
+
+    <!-- ---------- remixicons ---------------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <!-- -------------- stylesheet -------------- -->
+    <link href="./output.css" rel="stylesheet">
+    <title>Adorah Weds Deba 2025 - Gallery</title>
+
+</head>
+
+<body>
+    <header id="navbar" class="fixed w-full z-10 text-white z-100 bg-yellow-100">
+        <nav class="container flex flex-col md:flex-row justify-between items-center gap-5 py-5 ">
+            <div><a href="#"><img src="./images/Logo--03.png" alt="" class="w-[50px]"></a></div>
+
+            <div class="w-full md:w-max">
+                <ul class="flex justify-between md:justify-normal sm:gap-5 text-red-950">
+                    <li><a href="./index.html" class="nav-link">Home</a></li>
+                    <li><a href="./gallery.html" class="nav-link">Gallery</a></li>
+                    <li><a href="./admin.html" id="admin-btn">Admin</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <section class="bg-yellow-100 relative before:content-[''] before:w-full before:h-full before:absolute before:bg-black/70 before:top-0 before:left-0 bg-[url('./images/image-2.jpg')] bg-cover bg-center text-white">
+            <div class="relative container mx-auto min-h-screen pt-48 pb-20">
+                <div class="text-center">
+                    <div>
+                        <h1 class="text-5xl font-bold mb-4 font-Funnel">Gallery</h1>
+                        <p class="font-Birthstone text-2xl md:text-3xl text-yellow-400">Captured Moments of Love and Joy</p>
+                    </div>
+                    <!-- Responsive Grid -->
+                    <div id="images-container" class="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+                        <!-- Dynamically loaded images -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+          
+        <script src="./gallery.js"></script>
+        
+    </main>
+
+    <div id="admin-modal" class="fixed inset-0  z-50 flex items-center justify-center bg-black/70 hidden">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
+            <!-- Close Button -->
+            <button id="close-admin-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl">
+                <i class="ri-close-line"></i>
+            </button>
+
+            <!-- Modal Content -->
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Admin Login</h2>
+            <form id="admin-form" class="space-y-4">
+                <!-- Username or Email -->
+                <div>
+                    <label for="admin-username" class="block text-sm text-gray-600">Username or Email</label>
+                    <input type="text" id="admin-username" name="admin-username"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="admin-password" class="block text-sm text-gray-600">Password</label>
+                    <input type="password" id="admin-password" name="admin-password"
+                        class="w-full border border-gray-300 p-2 rounded-lg focus:ring focus:ring-yellow-300" required>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit"
+                        class="bg-yellow-400 text-gray-800 px-6 py-2 rounded-lg font-semibold hover:bg-yellow-500">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="./gallery.js"></script>
+</body>
+
+</html>

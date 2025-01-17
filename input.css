@@ -16,6 +16,10 @@
   }
 }
 
+body {
+  @apply overflow-x-hidden
+}
+
 .nav-link:hover {
   @apply text-yellow-500
 }
