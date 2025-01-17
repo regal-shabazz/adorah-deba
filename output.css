@@ -647,6 +647,10 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.mb-36{
+  margin-bottom: 9rem;
+}
+
 .mb-4{
   margin-bottom: 1rem;
 }
@@ -665,10 +669,6 @@ video {
 
 .mt-2{
   margin-top: 0.5rem;
-}
-
-.mb-32{
-  margin-bottom: 8rem;
 }
 
 .block{
@@ -1153,24 +1153,14 @@ h2{
   width: 100%;
 }
 
-.before\:bg-black\/60::before{
-  content: var(--tw-content);
-  background-color: rgb(0 0 0 / 0.6);
-}
-
-.before\:bg-black\/70::before{
-  content: var(--tw-content);
-  background-color: rgb(0 0 0 / 0.7);
-}
-
-.before\:bg-black\/50::before{
-  content: var(--tw-content);
-  background-color: rgb(0 0 0 / 0.5);
-}
-
 .before\:bg-black\/55::before{
   content: var(--tw-content);
   background-color: rgb(0 0 0 / 0.55);
+}
+
+.before\:bg-black\/65::before{
+  content: var(--tw-content);
+  background-color: rgb(0 0 0 / 0.65);
 }
 
 .before\:content-\[\'\'\]::before{
