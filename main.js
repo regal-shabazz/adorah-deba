@@ -67,8 +67,8 @@ contactRadios.forEach((radio) => {
             contactInfo.placeholder = 'e.g., you@example.com';
             contactInfo.type = 'email';
         } else if (selectedValue === 'whatsapp') {
-            contactLabel.textContent = 'Your WhatsApp Number';
-            contactInfo.placeholder = 'e.g., +1234567890';
+            contactLabel.textContent = 'Your WhatsApp Number (Please include country code)';
+            contactInfo.placeholder = 'e.g., +1-234-567-8901';
             contactInfo.type = 'tel';
         }
 
@@ -105,6 +105,13 @@ const infoMessage = document.getElementById('info-message');
 rsvpForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Get the submit button
+  const submitButton = rsvpForm.querySelector('button[type="submit"]');
+  
+  // Disable the submit button and update its text
+  submitButton.disabled = true;
+  submitButton.textContent = "Submitting...";
+
     // Collect form data
     const firstName = document.getElementById('first-name').value.trim();
     const lastName = document.getElementById('last-name').value.trim();
@@ -136,7 +143,10 @@ rsvpForm.addEventListener('submit', async (e) => {
           Attending: ${attendance} 
           Partner's Name: ${partnerName} 
           Contact Method: ${contactMethod} 
-          Contact Detail: ${contactDetail}`;
+          Contact Detail: ${contactMethod === "email"
+        ? contactDetail.replace('@', '＠').replace('.', '․')
+        : contactDetail.replace(/(\d{3})(\d{3})(\d{4})/, '$1\u200B-$2\u200B-$3')
+      }`;
 
         const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}`;
 
@@ -155,15 +165,27 @@ rsvpForm.addEventListener('submit', async (e) => {
 
             // Display the dynamic messages
             thankYouMessage.innerHTML = `Thank you, ${firstName}! Your RSVP has been successfully recorded.`;
+
+             // Re-enable the submit button and reset text
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit";
         };
 
         qrImage.onerror = (error) => {
             console.error("Error loading QR code:", error);
             qrCodeDiv.innerHTML = "Error loading QR code. Please try again.";
+
+               // Re-enable the submit button and reset text
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit";
         };
     } catch (error) {
         console.error("Error saving RSVP to Firestore:", error);
         alert("Failed to submit your RSVP. Please try again.");
+
+            // Re-enable the submit button and reset text
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit";
     }
 });
 

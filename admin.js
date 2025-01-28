@@ -19,189 +19,140 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const rsvpCollection = collection(db, "rsvps");
-
-let totalGuests = 0;
-let checkedInGuests = 0;
-
-// Fetch and render RSVP data with live updates
-function fetchAndRenderRSVPData(searchQuery = "") {
-    const rsvpTableBody = document.getElementById("rsvp-table-body");
+let guests = [];
+document.addEventListener("DOMContentLoaded", async () => {
+    const guestListTable = document.getElementById("guest-list");
     const totalCountElem = document.getElementById("total-count");
     const checkedInCountElem = document.getElementById("checked-in-count");
+    const searchInput = document.getElementById("search-input");
 
-    if (!rsvpTableBody) return;
 
-    rsvpTableBody.innerHTML = ""; // Clear existing data
 
-    try {
-        const unsubscribe = onSnapshot(rsvpCollection, (querySnapshot) => {
-            let totalGuests = 0;
-            let checkedInGuests = 0;
-            const rsvpList = [];
+    // Fetch RSVP data from Firestore
+    async function fetchGuests() {
+        const snapshot = await getDocs(collection(db, "rsvps"));
+        guests = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        sortAndRenderGuestList();
+    }
 
-            querySnapshot.forEach((docSnapshot) => {
-                const data = docSnapshot.data();
-                const { firstName = "N/A", lastName = "N/A", checkedIn = false } = data;
-                const fullName = `${firstName} ${lastName}`;
+    // Sort guests alphabetically by name
+    function sortGuests() {
+        guests.sort((a, b) => {
+            const nameA = `${a.firstName} ${a.lastName}`.toLowerCase();
+            const nameB = `${b.firstName} ${b.lastName}`.toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
+    }
 
-                // Filter the results based on the search query
-                if (fullName.toLowerCase().includes(searchQuery.toLowerCase())) {
-                    rsvpList.push({
-                        id: docSnapshot.id,
-                        fullName,
-                        checkedIn,
-                    });
-                }
+    // Render Guest List
+    function renderGuestList(filteredGuests = guests) {
+        guestListTable.innerHTML = ""; // Clear existing rows
+        filteredGuests.forEach((guest, index) => {
+            const tr = document.createElement("tr");
+            tr.classList.add("border", "border-yellow-900");
 
-                // Always count all guests, not just those in the search query
-                totalGuests++;
-                if (checkedIn) checkedInGuests++;
-            });
+            tr.innerHTML = `
+                <td class="border border-yellow-900 px-4 py-2 text-xs">${index + 1}</td>
+                <td class="border border-yellow-900 px-4 py-2 text-xs font-bold">${guest.firstName} ${guest.lastName}</td>
+                <td class="border border-yellow-900 px-4 py-2 text-xs">${guest.attendance}</td>
+                <td class="hidden md:table-cell border border-yellow-900 px-4 py-2 text-xs"><span class="${guest.contactMethod === 'whatsapp' ? 'bg-green-700' : 'bg-red-600'} text-white p-1 rounded">${guest.contactMethod}</span> : <span class="font-semibold">${guest.contactDetail}</span></td>
+                <td class=" px-4 py-2 flex justify-around">
+                    <button class="delete-btn bg-red-600 text-white px-2 py-1 rounded text-xs" data-id="${guest.id}">
+                        Delete
+                    </button>
+                </td>
+            `;
 
-            // Sort the list alphabetically by name
-            rsvpList.sort((a, b) => a.fullName.localeCompare(b.fullName));
-
-            rsvpList.forEach((guest, index) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td class="border border-gray-300 px-4 py-2 max-w-min">${index + 1}</td>
-                    <td class="border border-gray-300 px-4 py-2 font-semibold">${guest.fullName}</td>
-                    <td class="border border-gray-300 px-4 py-2 flex flex-col gap-3 md:flex-row justify-center md:gap-6">
-                        <button class="view-details bg-blue-500 text-white px-2 py-1 rounded" data-id="${guest.id}">
-                            View Details
-                        </button>
-                        <button class="delete bg-red-500 text-white px-2 py-1 rounded" data-id="${guest.id}">
-                            Delete
-                        </button>
-                        <button class="check-in bg-green-500 text-white px-2 py-1 rounded" data-id="${guest.id}" data-checked-in="${guest.checkedIn}">
-                            ${guest.checkedIn ? "Checked In" : "Check In"}
-                        </button>
-                    </td>
-                `;
-                rsvpTableBody.appendChild(row);
-            });
-
-            // Update the count display
-            totalCountElem.textContent = `Total Guests: ${totalGuests}`;
-            checkedInCountElem.textContent = `Checked In: ${checkedInGuests} of ${totalGuests}`;
-
-            // Attach event listeners to dynamically created buttons
-            attachEventListeners();
+            guestListTable.appendChild(tr);
         });
 
-    } catch (error) {
-        console.error("Error fetching RSVP data:", error);
+        // Update counts
+        totalCountElem.textContent = `Total Guests: ${filteredGuests.length}`;
+       ;
+
+        // Add event listeners for buttons
+        addActionListeners();
     }
-}
 
-
-
-// Handle "Check In" button click
-async function handleCheckIn(event) {
-    const guestId = event.target.dataset.id;
-    const button = event.target;
-    const isCheckedIn = button.dataset.checkedIn === "true";
-    const row = button.closest("tr"); // Get the <tr> element that contains the button
-
-    try {
-        const docRef = doc(db, "rsvps", guestId); // Direct reference to the 'rsvps' document
-
-        // Toggle check-in status
-        await setDoc(docRef, { checkedIn: !isCheckedIn }, { merge: true });
-
-        // Update button appearance and text
-        button.textContent = isCheckedIn ? "Check In" : "Checked In";
-        button.dataset.checkedIn = (!isCheckedIn).toString();
-        button.classList.toggle("bg-green-500", !isCheckedIn);
-        button.classList.toggle("bg-gray-500", isCheckedIn);
-
-        // Change the background color of the row based on check-in status
-        if (!isCheckedIn) {
-            row.style.backgroundColor = "#d4f7d4"; // Light green background for checked-in
-        } else {
-            row.style.backgroundColor = ""; // Reset the background color
-        }
-
-        // Update the counts for total and checked-in guests
-        fetchAndRenderRSVPData(); // Re-fetch data to ensure counts are updated
-    } catch (error) {
-        console.error("Error updating check-in status:", error);
+    // Sort and render the guest list
+    function sortAndRenderGuestList() {
+        sortGuests();
+        renderGuestList();
     }
-}
 
+    // Add Action Listeners to buttons
+    function addActionListeners() {
+        document.querySelectorAll(".delete-btn").forEach((btn) => {
+            btn.addEventListener("click", async (e) => {
+                const guestId = e.target.dataset.id;
+                await deleteDoc(doc(db, "rsvps", guestId));
+                guests = guests.filter((guest) => guest.id !== guestId);
+                sortAndRenderGuestList();
+            });
+        });
 
-// Display modal with guest details
-function displayModal(data) {
-  const modal = document.getElementById("details-modal");
-  const modalContent = document.getElementById("modal-content");
+        // document.querySelectorAll(".check-in-btn").forEach((btn) => {
+        //     btn.addEventListener("click", (e) => {
+        //         const guestId = e.target.dataset.id;
+        //         const guest = guests.find((g) => g.id === guestId);
+        //         if (guest && !guest.checkedIn) {
+        //             guest.checkedIn = true; // Mark as checked in
+        //             checkedInCount++;
+        //             sortAndRenderGuestList();
+        //         }
+        //     });
+        // });
+    }
 
-  modalContent.innerHTML = `
-    <p><strong>First Name:</strong> ${data.firstName || "N/A"}</p>
-    <p><strong>Last Name:</strong> ${data.lastName || "N/A"}</p>
-    <p><strong>Attendance:</strong> ${data.attendance || "N/A"}</p>
-    <p><strong>Contact Method:</strong> ${data.contactMethod || "N/A"}</p>
-    <p><strong>Contact Detail:</strong> ${data.contactDetail || "N/A"}</p>
-    <p><strong>Partner Name:</strong> ${data.partnerName || "N/A"}</p>
-  `;
+    // Filter guest list based on search input
+    searchInput.addEventListener("input", () => {
+        const searchQuery = searchInput.value.toLowerCase();
+        const filteredGuests = guests.filter((guest) => {
+            const fullName = `${guest.firstName} ${guest.lastName}`.toLowerCase();
+            return fullName.includes(searchQuery);
+        });
+        renderGuestList(filteredGuests);
+    });
 
-  modal.style.display = "block";
-}
-
-// Update the modal close button event listener to hide the modal
-document.getElementById("close-modal").addEventListener("click", () => {
-    const modal = document.getElementById("details-modal");
-    modal.style.display = "none";
+    // Initial fetch and render
+    fetchGuests();
 });
-async function handleViewDetails(event) {
-    const guestId = event.target.dataset.id;
 
-    try {
-        // Fetch the guest data from Firestore
-        const docRef = doc(db, "rsvps", guestId);
-        const docSnapshot = await getDoc(docRef);
 
-        if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            displayModal(data); // Call the modal display function
-        } else {
-            console.error("Guest not found");
-        }
-    } catch (error) {
-        console.error("Error fetching guest details:", error);
+// Function to download the guest list as CSV
+function downloadCSV() {
+    if (guests.length === 0) {
+        alert("No guests to download!");
+        return;
     }
+
+    // Prepare CSV headers and rows
+    const headers = ["First Name", "Last Name", "Attending", "Contact Method", "Contact Detail"];
+    const rows = guests.map((guest) => [
+        guest.firstName,
+        guest.lastName,
+        guest.attendance,
+        guest.contactMethod,
+        guest.contactDetail,
+    ]);
+
+    // Combine headers and rows into a single CSV string
+    const csvContent = [headers, ...rows]
+        .map((row) => row.map((value) => `"${value}"`).join(","))
+        .join("\n");
+
+    // Create a Blob from the CSV string
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+    // Create a download link and trigger the download
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "guest_list.csv"; // File name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
-async function handleDeleteEntry(event) {
-    const guestId = event.target.dataset.id;
-  
-    try {
-      const docRef = doc(db, "rsvps", guestId);
-      await deleteDoc(docRef);
-      console.log("Document deleted successfully.");
-      fetchAndRenderRSVPData(); // Refresh the table and count
-    } catch (error) {
-      console.error("Error deleting RSVP entry:", error);
-    }
-  }
-  
-
-// Attach event listeners to buttons after rendering the RSVP data
-function attachEventListeners() {
-    document.querySelectorAll(".view-details").forEach((button) =>
-      button.addEventListener("click", handleViewDetails)
-    );
-    document.querySelectorAll(".delete").forEach((button) =>
-      button.addEventListener("click", handleDeleteEntry)
-    );
-    document.querySelectorAll(".check-in").forEach((button) =>
-      button.addEventListener("click", handleCheckIn)
-    );
-}
-
-  // Handle search input
-document.getElementById("search-input").addEventListener("input", (event) => {
-    const searchQuery = event.target.value;
-    fetchAndRenderRSVPData(searchQuery);
-});
-// Fetch and display RSVP data when the page loads
-fetchAndRenderRSVPData();
+// Attach event listener to the download button
+document.getElementById("download-list").addEventListener("click", downloadCSV);

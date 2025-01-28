@@ -1,124 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- --------------- favicon ------------- -->
-    
-        <!-- ---------- remixicons ---------------- -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
-        <!-- -------------- stylesheet -------------- -->
-        <link href="./output.css" rel="stylesheet">
-        <title>Adorah Weds Deba 2025 - ADMIN</title>  
-    </head>
-<body>
-    
-    <header id="navbar" class="fixed w-full z-10 text-white z-100 bg-yellow-100">
-        <nav class="container flex justify-between items-center gap-5 py-5">
-            <div><a href="#"><img src="./images/Logo--03.png" alt="" class="w-[50px]"></a></div>
-            <div class=" md:w-max">
-                <ul class=" text-red-950">
-                    <li><a href="./index.html" class="nav-link">Back To Homepage</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
 
-    <main>
-        <section id="admin-page" class="container mx-auto pt-36 pb-20">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Admin Dashboard</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ---------- remixicons ---------------- -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <title>Adorah weds Deba 2025 - Admin</title>
+    <link rel="stylesheet" href="./output.css">
+
+</head>
+
+<body>
+    <header class="sticky top-0 font-josefin w-full flex right-0 z-10 bg-white shadow-sm">
+        <div class="container mx-auto py-4 px-4">
+            <nav class=" text-[#531212] mb-4">
+                <ul class="flex justify-center">
+                    <li><a href="./index.html">Back to Homepage</a></li>
+                </ul>
+            </nav>
+
+
             
+            <div class="bg-[#531212] rounded text-white mb-4 p-2 text-sm">
+                <p class="text-2xl">Welcome, Admin</p>
+            </div>
             <!-- Sticky Utility Section -->
-            <div class="sticky top-[80px] bg-white z-20 shadow-md mb-4 py-5 pl-5">
+            <div class="bg-[#531212] rounded text-black z-20 shadow-md mb-4 py-4 px-4">
                 <!-- Search Bar -->
                 <div class="mb-4">
-                    <input
-                        type="text"
-                        id="search-input"
-                        placeholder="Search by name..."
-                        class="px-4 py-2 border rounded-lg w-full max-w-md"
-                    />
+                    <input type="text" id="search-input" placeholder="Search by name..."
+                        class="px-4 py-2 border rounded-lg w-full" />
                 </div>
-    
+
                 <!-- RSVP Counts -->
-                <div id="rsvp-count" class="mb-4 text-lg">
-                    <p id="total-count">Total Guests: 0</p>
-                    <p id="checked-in-count">Checked In: 0 of 0</p>
+                <div id="rsvp-count" class=" text-sm">
+                    <p id="total-count" class="mb-6 text-white">Total Guests: 0</p>
+
+                    <p id="download-list" class="bg-white text-[#531212] w-max p-2 cursor-pointer">Download List</p>
                 </div>
             </div>
-    
-            <!-- RSVP Data List -->
-            <div id="rsvp-data-list" class="text-sm overflow-x-auto">
-                <table class="table-auto w-full border-collapse border text-center border-gray-300">
-                    <thead>
-                        <tr class="bg-gray-200">
-                            <th class="border border-gray-300 px-4 py-2 max-w-min">S/N</th>
-                            <th class="border border-gray-300 px-4 py-2 w-1/2">Name</th>
-                            <th class="border border-gray-300 px-4 py-2">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="rsvp-table-body">
-                        <!-- Dynamic content will be appended here -->
-                    </tbody>
-                </table>
+        </div>
+
+        </div>
+    </header>
+
+    <main class="mb-10">
+        <section>
+            <div class="container mx-auto">
+                <div class="px-4 text-sm">
+                    <table class="w-full table-auto border-collapse border border-[#531212]">
+                        <thead>
+                            <tr class="bg-[#531212] text-white">
+                                <th class="border border-[#531212] px-4 py-2">S/N</th>
+                                <th class="border border-[#531212] px-4 py-2">Full Name</th> 
+                                <th class="hidden md:table-cell border border-[#531212] px-4 py-2">Attending</th>
+                                <th class="hidden md:table-cell border border-[#531212] px-4 py-2">Contact Detail</th>
+                                <th class=" border-[#531212] px-4 py-2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guest-list">
+                            <!-- Rows will be dynamically added here -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </main>
-    
-    <div id="details-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 hidden">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-11/12 max-w-lg relative">
-            <!-- Close Button -->
-            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 text-2xl">
-                <i class="ri-close-line"></i>
-            </button>
-    
-            <!-- Modal Content -->
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Guest Details</h2>
-            <div id="modal-content" class="space-y-4">
-                <!-- Guest details will be dynamically populated here -->
-            </div>
-        </div>
-    </div>
-    
-    
-
-
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-        import { deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
-
-        
-        
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyBS59aKUsLSYDPwpF5BmVk7AdeWRBgrRHw",
-          authDomain: "adorahdebaa.firebaseapp.com",
-          projectId: "adorahdebaa",
-          storageBucket: "adorahdebaa.firebasestorage.app",
-          messagingSenderId: "864472181612",
-          appId: "1:864472181612:web:0c96f54dbc4d082fd2e149",
-          measurementId: "G-234QM140XC"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getFirestore(app);
-        const rsvpCollection = collection(db, "rsvps");
-      </script>
-    
-    <script type="module" src="admin.js"></script>
-
-
-
-
+    <script type="module" src="./admin.js"></script>
 </body>
+
 </html>
