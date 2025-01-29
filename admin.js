@@ -20,13 +20,13 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const rsvpCollection = collection(db, "rsvps");
 let guests = [];
+
 document.addEventListener("DOMContentLoaded", async () => {
     const guestListTable = document.getElementById("guest-list");
     const totalCountElem = document.getElementById("total-count");
-    const checkedInCountElem = document.getElementById("checked-in-count");
+    const withPartnerCountElem = document.getElementById("with-total-count");
+    const withoutPartnerCountElem = document.getElementById("without-total-count");
     const searchInput = document.getElementById("search-input");
-
-
 
     // Fetch RSVP data from Firestore
     async function fetchGuests() {
@@ -47,30 +47,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Render Guest List
     function renderGuestList(filteredGuests = guests) {
         guestListTable.innerHTML = ""; // Clear existing rows
+        let totalGuestCount = 0;
+        let withPartnerTotal = 0;
+        let withoutPartnerTotal = 0;
+        
         filteredGuests.forEach((guest, index) => {
             const tr = document.createElement("tr");
             tr.classList.add("border", "border-yellow-900");
+
+            // Calculate total guest count including partners
+            const guestCount = guest.attendance == 'with partner' ? 2 : 1;
+            totalGuestCount += guestCount;
+
+            // Calculate guest count with and without partners  
+            if (guest.attendance == 'with partner') {
+                withPartnerTotal += 1;
+            } else {
+                withoutPartnerTotal += 1;
+            }
 
             tr.innerHTML = `
                 <td class="border border-yellow-900 px-4 py-2 text-xs">${index + 1}</td>
                 <td class="border border-yellow-900 px-4 py-2 text-xs font-bold">${guest.firstName} ${guest.lastName}</td>
                 <td class="border border-yellow-900 px-4 py-2 text-xs">${guest.attendance}</td>
-                <td class="hidden md:table-cell border border-yellow-900 px-4 py-2 text-xs"><span class="${guest.contactMethod === 'whatsapp' ? 'bg-green-700' : 'bg-red-600'} text-white p-1 rounded">${guest.contactMethod}</span> : <span class="font-semibold">${guest.contactDetail}</span></td>
-                <td class=" px-4 py-2 flex justify-around">
-                    <button class="delete-btn bg-red-600 text-white px-2 py-1 rounded text-xs" data-id="${guest.id}">
-                        Delete
-                    </button>
+                <td class="hidden md:table-cell border border-yellow-900 px-4 py-2 text-xs">
+                    <span class="${guest.contactMethod === 'whatsapp' ? 'bg-green-700' : 'bg-red-600'} text-white p-1 rounded">${guest.contactMethod}</span>
+                    : <span class="font-semibold">${guest.contactDetail}</span>
+                </td>
+                <td class="px-4 py-2 flex justify-around">
+                    <button class="delete-btn bg-red-600 text-white px-2 py-1 rounded text-xs" data-id="${guest.id}">Delete</button>
                 </td>
             `;
-
             guestListTable.appendChild(tr);
         });
 
-        // Update counts
-        totalCountElem.textContent = `Total Guests: ${filteredGuests.length}`;
-       ;
+        // Update total guest count including partners
+        totalCountElem.textContent = `Total Guests (Partners included): ${totalGuestCount}
+       `;
+        withPartnerCountElem.textContent = `Guests attending with partner: ${withPartnerTotal}
+       `;
+        withoutPartnerCountElem.textContent = `Guests attending alone: ${withoutPartnerTotal}
+       `;
 
-        // Add event listeners for buttons
         addActionListeners();
     }
 
@@ -90,18 +108,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 sortAndRenderGuestList();
             });
         });
-
-        // document.querySelectorAll(".check-in-btn").forEach((btn) => {
-        //     btn.addEventListener("click", (e) => {
-        //         const guestId = e.target.dataset.id;
-        //         const guest = guests.find((g) => g.id === guestId);
-        //         if (guest && !guest.checkedIn) {
-        //             guest.checkedIn = true; // Mark as checked in
-        //             checkedInCount++;
-        //             sortAndRenderGuestList();
-        //         }
-        //     });
-        // });
     }
 
     // Filter guest list based on search input
